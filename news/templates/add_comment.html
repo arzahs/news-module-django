@@ -1,0 +1,8 @@
+{% block comment_form %}
+        Добавить комментарий
+    <form action="{% url "add_comment" %}" method="post">
+        {{ form.as_ul }}
+        {% csrf_token %}
+        <input type="submit" value="Добавить комментарий">
+    </form>
+{% endblock comment_form %}

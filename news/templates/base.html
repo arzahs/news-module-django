@@ -5,6 +5,9 @@
     <title>{% block meta_title %}News{% endblock meta_title %}</title>
 </head>
 <body>
+<a href="{% url 'list_news' %}">Главная страница</a>
+<a href="{% url 'add_news' %}">Добавить новость</a>
+<a href="/admin/">Администрирование</a>
 {% block content %}
 {% endblock content %}
 </body>

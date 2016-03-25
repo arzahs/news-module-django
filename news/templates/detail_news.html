@@ -6,12 +6,7 @@
     <h4>{{ news.author }}</h4>
     <time datetime="{{ news.added_date }}">{{ news.added_date }}</time>
     <br>
-    Добавить комментарий
-    <form action="{% url "add_comment" %}" method="post">
-        {{ form.as_ul }}
-        {% csrf_token %}
-        <input type="submit" value="Добавить комментарий">
-    </form>
+    {% include "add_comment.html" %}
 
     Комментарии:
     <br>

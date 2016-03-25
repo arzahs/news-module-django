@@ -5,14 +5,8 @@ from django.views.generic import ListView, CreateView, DetailView
 from django.forms import Form, ModelForm, widgets
 from django.shortcuts import render_to_response
 
+
 # Create your views here.
-def test(request):
-    return HttpResponse('OK', status=200)
-
-def test2(request, pk, *args, **kwargs):
-    return HttpResponse('OK2', status=200)
-
-
 class AddNewsForm(ModelForm):
     class Meta:
         model = News
@@ -34,6 +28,11 @@ class NewsListView(ListView):
     context_object_name = 'news'
     paginate_by = 5
 
+    def get_queryset(self):
+        queryset = News.objects.order_by('-added_date')
+        return queryset
+
+
 
 class NewsDetailView(DetailView):
     model = News
@@ -42,13 +41,9 @@ class NewsDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(NewsDetailView, self).get_context_data(**kwargs)
-        context['comments'] = Comment.objects.order_by('-added_date')
+        context['comments'] = Comment.objects.filter(news=self.object)
         context['form'] = AddCommentForm(initial={'news': self.object.pk})
         return context
-
-    # def post(self, request, *args, **kwargs):
-    #     form = AddCommentForm(request.POST)
-    #     return self.render_to_response(self.get_context_data())
 
 
 class NewsCreateView(CreateView):
@@ -61,6 +56,7 @@ class CommentCreateView(CreateView):
     model = Comment
     form_class = AddCommentForm
     http_method_names = ['post']
+    template_name = 'add_comment.html'
 
 
 
