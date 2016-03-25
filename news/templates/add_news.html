@@ -1,0 +1,9 @@
+{% include 'base.html' %}
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_ul }}
+        <input type="submit" value="Добавить новость">
+    </form>
+
+{% endblock content %}

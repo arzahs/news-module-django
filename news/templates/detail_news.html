@@ -1,0 +1,26 @@
+{% include 'base.html' %}
+
+{% block content %}
+    <h1>{{ news.title }}</h1>
+    <p>{{ news.article }}</p>
+    <h4>{{ news.author }}</h4>
+    <time datetime="{{ news.added_date }}">{{ news.added_date }}</time>
+    <br>
+    Добавить комментарий
+    <form action="{% url "add_comment" %}" method="post">
+        {{ form.as_ul }}
+        {% csrf_token %}
+        <input type="submit" value="Добавить комментарий">
+    </form>
+
+    Комментарии:
+    <br>
+    {% for comment in comments %}
+        Автор: {{ comment.author }}
+        Дата: <time datetime="{{ comment.added_date }}">{{ comment.added_date }}</time>
+        <p>{{ comment.text }}</p>
+        <br>
+    {% endfor %}
+
+
+{% endblock content %}

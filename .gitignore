@@ -1,0 +1,10 @@
+;;extensions to ignore 
+*.log 
+*.pot 
+*.pyc 
+
+;;directories to ignore
+.idea/
+news/__pycache__/
+news_site/__pycache__/
+news/migrations/
