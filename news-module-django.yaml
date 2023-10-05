@@ -1,0 +1,41 @@
+namespace: news-module-django
+news-module-django:
+  defines: runnable
+  metadata:
+    name: news-module-django
+    description: A simple django application for news management.
+    icon: https://emojiapi.dev/api/v1/newspaper.svg
+  containers:
+    news-module-django:
+      build: .
+  services:
+    django-default-port:
+      container: news-module-django
+      port: 8000
+      host-port: 8000
+      publish: false
+      protocol: TCP
+      description: Default port where Django applications are served.
+  variables:
+    django-settings-module:
+      env: DJANGO_SETTINGS_MODULE
+      type: string
+      description: Module where Django settings are located
+      value: news_site.settings
+    secret-key:
+      env: SECRET_KEY
+      type: string
+      description: Django secret key, used for security purposes
+      value: '!!!SETME-USE-SECRETS!!!'
+    debug:
+      env: DEBUG
+      type: bool
+      description: Flag to indicate if application is running in debug mode
+      value: true
+    databases:
+      env: DATABASES
+      type: string
+      description: Settings for connecting to databases
+      value: >-
+        {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME':
+        'db.sqlite3'}}
